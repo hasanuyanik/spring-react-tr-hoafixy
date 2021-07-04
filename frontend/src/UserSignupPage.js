@@ -26,27 +26,30 @@ class UserSignupPage extends React.Component{
    
     render(){
         return(
+            <div className="container">
             <form>
-                <h1>Sign Up</h1>
-                <div>
+                <h1 className="text-center">Sign Up</h1>
+                <div className="form-group">
                     <label>Username</label>
-                    <input name="username" onChange={this.onChange}/>
+                    <input className="form-control" name="username" onChange={this.onChange}/>
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Display Name</label>
-                    <input name="displayName" onChange={this.onChange}/>
+                    <input className="form-control" name="displayName" onChange={this.onChange}/>
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Password</label>
-                    <input name="password" onChange={this.onChange} type="password"/>
+                    <input className="form-control" name="password" onChange={this.onChange} type="password"/>
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Password Repeat</label>
-                    <input name="passwordRepeat" onChange={this.onChange} type="password"/>
+                    <input className="form-control" name="passwordRepeat" onChange={this.onChange} type="password"/>
                 </div>
-                <button onClick={this.onClickSignup}>Sign Up</button>
+                <div class="form-group text-center">
+                <button class="btn btn-primary" onClick={this.onClickSignup}>Sign Up</button>
+                </div>
             </form>
-            
+            </div>
 
         );
     }
