@@ -1,11 +1,12 @@
 import React from 'react';
-import axios from 'axios';
+import {signup} from '../api/apiCalls';
 class UserSignupPage extends React.Component{
     state = {
         username: null,
         displayName: null,
         password: null,
-        passwordRepeat: null
+        passwordRepeat: null,
+        pendingApiCall: false
     }
     onChange = event => {
         const {name, value} = event.target;
@@ -13,7 +14,7 @@ class UserSignupPage extends React.Component{
             [name]:value
         })
     }
-    onClickSignup = event => {
+    onClickSignup = async event => {
         event.preventDefault();
         const {username, displayName, password} = this.state;
         const body = {
@@ -21,10 +22,17 @@ class UserSignupPage extends React.Component{
             displayName,
             password
         };
-        axios.post('/api/1.0/users',body)
+        this.setState({pendingApiCall: true});
+        try{
+            const response = await signup(body);
+        }catch(error){
+
+        }
+        this.setState({pendingApiCall: false});
     }
    
     render(){
+        const {pendingApiCall} = this.state;
         return(
             <div className="container">
             <form>
@@ -45,8 +53,10 @@ class UserSignupPage extends React.Component{
                     <label>Password Repeat</label>
                     <input className="form-control" name="passwordRepeat" onChange={this.onChange} type="password"/>
                 </div>
-                <div class="form-group text-center">
-                <button class="btn btn-primary" onClick={this.onClickSignup}>Sign Up</button>
+                <div className="form-group text-center">
+                    <button className="btn btn-primary" onClick={this.onClickSignup} disabled={pendingApiCall}>
+                        {pendingApiCall && <span className="spinner-border spinner-border-sm"></span>}Sign Up
+                    </button>
                 </div>
             </form>
             </div>
