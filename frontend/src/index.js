@@ -5,12 +5,16 @@ import './bootstrap-override.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserSignupPage from './pages/UserSignupPage';
+import UserLoginPage from './pages/UserLoginPage';
+import LanguageSelector from './components/LanguageSelector';
 import './i18n';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
+    <UserLoginPage />
+    <LanguageSelector />
     <UserSignupPage />
-  </React.StrictMode>,
+  </div>,
   document.getElementById('root')
 );
 
