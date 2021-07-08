@@ -2,6 +2,7 @@ import React from 'react';
 import {signup} from '../api/apiCalls';
 import Input from '../components/Input';
 import { withTranslation } from 'react-i18next';
+import { login } from '../api/apiCalls';
 
 class UserLoginPage extends React.Component{
     state = {
@@ -22,21 +23,12 @@ class UserLoginPage extends React.Component{
     }
     onClickLogin = async event => {
         event.preventDefault();
-        const {username, password} = this.state;
-        const body = {
-            username,
-            password
-        };
-        this.setState({pendingApiCall: true});
-        try{
-            const response = await signup(body);
-        }catch(error){
-            if(error.response.data.validationErrors){
-               this.setState({ errors: error.response.data.validationErrors}); 
-            }
-            
+        const { username, password } = this.state;
+        const creds = {
+            username: username,
+            password: password
         }
-        this.setState({pendingApiCall: false});
+        login()
     }
     
     render(){
