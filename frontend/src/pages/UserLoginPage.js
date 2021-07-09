@@ -25,10 +25,10 @@ class UserLoginPage extends React.Component{
         event.preventDefault();
         const { username, password } = this.state;
         const creds = {
-            username: username,
-            password: password
+            username,
+            password
         }
-        login()
+        login(creds)
     }
     
     render(){
