@@ -1,24 +1,37 @@
 import React from 'react';
-import {signup} from '../api/apiCalls';
 import Input from '../components/Input';
 import { withTranslation } from 'react-i18next';
 import { login } from '../api/apiCalls';
+import axios from 'axios';
+import ButtonWithProgress from '../components/ButtonWithProgress';
 
 class UserLoginPage extends React.Component{
     state = {
         username: null,
         password: null,
         pendingApiCall: false,
-        errors:{}
+        error: null
+    };
+
+    componentDidMount(){
+        axios.interceptors.request.use((request) => {
+            this.setState({pendingApiCall: true});
+            return request;
+        });
+
+        axios.interceptors.response.use((response) => {
+            this.setState({ pendingApiCall: false});
+            return response;
+        }, (error) => {
+            this.setState({ pendingApiCall: false});
+            throw error;
+        });
     }
     onChange = event => {
-        const { t } = this.props;
         const {name, value} = event.target;
-        const errors = { ... this.state.errors}
-        errors[name] = undefined
         this.setState({
             [name]:value,
-            errors
+            error: null
         })
     }
     onClickLogin = async event => {
@@ -28,23 +41,32 @@ class UserLoginPage extends React.Component{
             username,
             password
         }
-        login(creds)
+        this.setState({
+            error: null
+        });
+        try{
+            await login(creds);
+        }catch(apiError){
+            this.setState({
+                error: apiError.response.data.status
+            });
+        }
+        
     }
     
     render(){
-        const {pendingApiCall, errors} = this.state;
-        const {username, password} = errors;
         const {t} = this.props;
+        const { username, password, error, pendingApiCall} = this.state
+        const buttonEnabled = username && password;
         return(
             <div className="container">
             <form>
                 <h1 className="text-center">{t('Login')}</h1>
-                <Input name="username" label={t('Username')} error={username} onChange={this.onChange} />
-                <Input name="password" label={t('Password')} error={password} onChange={this.onChange} type="password" />
+                <Input name="username" label={t('Username')} onChange={this.onChange} />
+                <Input name="password" label={t('Password')} onChange={this.onChange} type="password" />
+                {this.state.error && <div className="alert alert-danger">{error}</div>}
                 <div className="form-group text-center">
-                    <button className="btn btn-primary" onClick={this.onClickLogin} disabled={pendingApiCall}>
-                        {pendingApiCall && <span className="spinner-border spinner-border-sm"></span>}{t('Login')}
-                    </button>
+                    <ButtonWithProgress onClick={this.onClickLogin} disabled={!buttonEnabled || pendingApiCall} pendingApiCall={pendingApiCall} text={t('Login')} />
                 </div>
                 
             </form>
