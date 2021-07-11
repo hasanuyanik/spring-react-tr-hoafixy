@@ -2,19 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './bootstrap-override.scss';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import UserSignupPage from './pages/UserSignupPage';
-import UserLoginPage from './pages/UserLoginPage';
-import LanguageSelector from './components/LanguageSelector';
+import App from "./container/App";
 import './i18n';
 
-ReactDOM.render(
-  <div>
-    <UserLoginPage />
-    <LanguageSelector />
-    <UserSignupPage />
-  </div>,
+ReactDOM.render(<App/>,
   document.getElementById('root')
 );
 

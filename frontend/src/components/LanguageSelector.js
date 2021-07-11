@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { withTranslation } from 'react-i18next';
 import { changeLanguage } from '../api/apiCalls';
 
