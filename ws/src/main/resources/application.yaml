@@ -11,4 +11,6 @@ spring:
      javax:
       persistance:
         validation:
-          mode: none
+          mode: none#  data:#    web:#      pageable:#        page-parameter: currentPage
+#        size-parameter: pageSize
+  

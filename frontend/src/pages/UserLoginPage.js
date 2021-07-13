@@ -29,7 +29,7 @@ const UserLoginPage = (props) => {
             await dispatch(loginHandler(creds));
             push('/');
         }catch(apiError){
-            setError(apiError.response.data.status);
+            setError(apiError.response.data.message);
         }
         
     }
