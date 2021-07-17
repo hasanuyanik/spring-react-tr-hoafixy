@@ -20,14 +20,17 @@ public class WsApplication {
 	@Bean
 	@Profile("dev")
 	CommandLineRunner createInitialUsers(UserService userService) {
-		return (args) -> {			
-				for(int i = 1; i<=25;i++) {				
+		return (args) -> {	
+				for(int i = 1; i<=25;i++) {	
+					User userControl = userService.getByUsername("user"+i);
+					if(userControl == null) {
 					User user = new User();
 					user.setUsername("user"+i);
 					user.setDisplayName("display"+i);
 					user.setPassword("P4ssword");
 					userService.save(user);
-						}
+					}
+				}
 		};
 	}
 

@@ -5,7 +5,10 @@ export const signup = (body) => {
 };
 export const login = creds =>{
     return axios.post('/api/1.0/auth', creds);
-}
+};
+export const logout = creds =>{
+    return axios.post('/api/1.0/logout');
+};
 
 export const changeLanguage = language => {
     axios.defaults.headers['accept-language'] = language;

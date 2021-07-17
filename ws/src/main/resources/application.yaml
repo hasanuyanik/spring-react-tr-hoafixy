@@ -13,6 +13,12 @@ hoaxify:
 ---
 spring:
   profiles: dev
+  datasource:
+    url: jdbc:h2:./devdb
+    username: sa
+  jpa:
+    hibernate:
+      ddl-auto: update
 hoaxify:
   upload-path: storage-dev#  data:#    web:#      pageable:#        page-parameter: currentPage
 #        size-parameter: pageSize
