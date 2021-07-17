@@ -46,14 +46,23 @@ public class UserService {
 		User inDB = getByUsername(username);
 		inDB.setDisplayName(updatedUser.getDisplayName());
 		if(updatedUser.getImage() != null) {
+			String oldImageName = inDB.getImage();
 			try {
 				String storedFileName = fileService.writeBase64EncodedStringToFile(updatedUser.getImage());
 				inDB.setImage(storedFileName);
+				fileService.deleteFile(oldImageName);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		return userRepository.save(inDB);
+	}
+
+	public void deleteUser(String username) {
+		User inDB = userRepository.findByUsername(username);
+		fileService.deleteFile(inDB.getImage());
+		//fileService.deleteAllStoredFilesForUser(inDB);
+		userRepository.delete(inDB);
 	}
 
 	

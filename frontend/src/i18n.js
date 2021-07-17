@@ -21,7 +21,10 @@ i18n.use(initReactI18next).init({
                 Edit: 'Edit',
                 'Change Display Name': 'Change Display Name',
                 Save: 'Save',
-                Cancel: 'Cancel'
+                Cancel: 'Cancel',
+                'My Profile': 'My Profile',
+                'Delete My Account': 'Delete My Account',
+                'Are you sure to delete your account?': 'Are you sure to delete your account?'
             }
         },
         tr: {
@@ -42,7 +45,10 @@ i18n.use(initReactI18next).init({
                 Edit: 'Düzenle',
                 'Change Display Name': 'Görünür İsminizi Değiştirin',
                 Save: 'Kaydet',
-                Cancel: 'İptal'
+                Cancel: 'İptal',
+                'My Profile': 'Profilim',
+                'Delete My Account': 'Hesabımı Sil',
+                'Are you sure to delete your account?': 'Hesabınızı silmek istediğinize emin misiniz?'
             }
         }
     },

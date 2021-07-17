@@ -1,16 +1,19 @@
-#spring:
-#  datasource:
-#    url: jdbc:h2:./devdb
-#    username: sa
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
 spring:
   jpa: 
     properties:
      javax:
       persistance:
         validation:
-          mode: none#  data:#    web:#      pageable:#        page-parameter: currentPage
+          mode: none
+  profiles:
+    active:
+       - dev
+hoaxify:
+  upload-path: picture-storage
+---
+spring:
+  profiles: dev
+hoaxify:
+  upload-path: storage-dev#  data:#    web:#      pageable:#        page-parameter: currentPage
 #        size-parameter: pageSize
   

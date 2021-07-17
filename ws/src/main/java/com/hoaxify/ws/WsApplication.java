@@ -18,6 +18,7 @@ public class WsApplication {
 	}
 	
 	@Bean
+	@Profile("dev")
 	CommandLineRunner createInitialUsers(UserService userService) {
 		return (args) -> {			
 				for(int i = 1; i<=25;i++) {				

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,9 +49,16 @@ public class UserController {
 	
 	@PutMapping("/users/{username}")
 	@PreAuthorize("#username == principal.username")
-	UserVM updateUser(@RequestBody UserUpdateVM updateUser, @PathVariable String username) {
+	UserVM updateUser(@Valid @RequestBody UserUpdateVM updateUser, @PathVariable String username) {
 		User user = userService.updateUser(username, updateUser);
 		return new UserVM(user);
+	}
+	
+	@DeleteMapping("/users/{username}")
+	@PreAuthorize("#username == principal.username")
+	GenericResponse deleteUser(@PathVariable String username) {
+		userService.deleteUser(username);
+		return new GenericResponse("User is removed");
 	}
 	
 }

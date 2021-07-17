@@ -12,10 +12,15 @@ const defaultState = {
     if(action.type == ACTIONS.LOGOUT_SUCCESS){
       return defaultState;
     } else if(action.type == ACTIONS.LOGIN_SUCCESS){
-        return {
-            ...action.payload,
-            isLoggedIn: true
-        }
+      return {
+          ...action.payload,
+          isLoggedIn: true
+      }
+    } else if(action.type == ACTIONS.UPDATE_SUCCESS){
+      return {
+        ...state,
+        ...action.payload
+      }
     }
     return state;
   };
